@@ -14,9 +14,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (self: super:
-    # let unstableTarball =
-    #   fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
-    let unstableTarball =
+    let unstablePinned =
       fetchGit {
         url = "https://github.com/NixOS/nixpkgs-channels";
         rev = "4dd5c93998da55002fdec1c715c680531420381c";
@@ -24,7 +22,7 @@
       };
     in
     {
-      unstable = import unstableTarball {};
+      unstable = (import unstablePinned {}).pkgs;
     })
   ];
   nix.nixPath = options.nix.nixPath.default ++

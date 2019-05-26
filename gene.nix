@@ -1,9 +1,6 @@
 pkgs:
 {
   home.file = {
-    # ".config/nvim/init.vim".source = "${builtins.fetchGit {
-    #   url = "https://github.com/aethelz/dotfiles/";
-    # }}/nvim/.config/nvim/init.vim";
     ".local/share/nvim/site/autoload/plug.vim".source = "${builtins.fetchGit {
       url = "https://github.com/junegunn/vim-plug/";
     }}/plug.vim";
@@ -41,17 +38,23 @@ pkgs:
     chromium.enable = true;
     fzf.enable = true;
     fzf.defaultCommand = "rg --files";
-    # neovim.package = myNVimBundle;
     neovim.enable = true;
     neovim.vimAlias = true;
     neovim.viAlias = true;
-  ##neovim.configure = {
-  ##  packages.myVimPackage = with pkgs.vimPlugins; {
-  ##    start = [
-  ##      fzfWrapper
-  ##    ];
-  ##  };
-  ##};
+    neovim.withNodeJs = true;
+
+    neovim.configure = {
+      # customRC = "${builtins.fetchGit {
+      #   url = "https://github.com/aethelz/dotfiles/";
+      # }}/nvim/.config/nvim/init.vim";
+      customRC = builtins.readFile "/home/gene/.config/nvim/init.vim";
+      packages.core = with pkgs.vimPlugins; {
+        start = [
+          vim-plug
+          fzfWrapper
+        ];
+      };
+    };
     bash = {
       enable = true;
       shellAliases = {

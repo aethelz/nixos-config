@@ -10,5 +10,3 @@ let
   ;
 in
 foldl' (flip extends) (_: super) paths self
-
-
