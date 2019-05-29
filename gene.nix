@@ -1,60 +1,77 @@
 pkgs:
 {
   home.file = {
+
     ".local/share/nvim/site/autoload/plug.vim".source = "${builtins.fetchGit {
       url = "https://github.com/junegunn/vim-plug/";
     }}/plug.vim";
+
     ".config/ranger/rc.conf".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/ranger/.config/ranger/rc.conf";
+
     ".config/termite/config".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/termite/.config/termite/config";
+
     ".Xmodmap".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/xmodmap/.Xmodmap";
+
     ".config/acer.icm".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/color/acer.icm";
+
     ".config/i3/config".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/i3/.config/i3/config";
+
     ".moc/" = {
       source = "${builtins.fetchGit {
         url = "https://github.com/aethelz/dotfiles/";
       }}/moc/.moc/";
       recursive = true;
     };
+
     ".config/mpv/mpv.conf".source = "${builtins.fetchGit {
       url = "https://github.com/aethelz/dotfiles/";
     }}/mpv/.config/mpv/mpv.conf";
+
   };
-  home.packages = [ pkgs.atool ];
-  #pkgs.brightnessctl pkgs.chromium pkgs.gnupg
+  home.packages = [
+    pkgs.atool
+    pkgs.brightnessctl
+    pkgs.cabal-install
+    pkgs.nodejs-11_x
+    pkgs.stack
+  ];
 
   programs = {
     zathura.enable = true;
     firefox.enable = true;
     chromium.enable = true;
-    fzf.enable = true;
-    fzf.defaultCommand = "rg --files";
-    neovim.enable = true;
-    neovim.vimAlias = true;
-    neovim.viAlias = true;
-    neovim.withNodeJs = true;
-
-    neovim.configure = {
-      # customRC = "${builtins.fetchGit {
-      #   url = "https://github.com/aethelz/dotfiles/";
-      # }}/nvim/.config/nvim/init.vim";
-      customRC = builtins.readFile "/home/gene/.config/nvim/init.vim";
-      packages.core = with pkgs.vimPlugins; {
-        start = [
-          vim-plug
-          fzfWrapper
-        ];
+    fzf = {
+      enable = true;
+      defaultCommand = "rg --files";
+    };
+    neovim = {
+      enable = true;
+      vimAlias = true;
+      viAlias = true;
+      withNodeJs = true;
+      configure = {
+        # customRC = "${builtins.fetchGit {
+        #   url = "https://github.com/aethelz/dotfiles/";
+        # }}/nvim/.config/nvim/init.vim";
+        customRC = builtins.readFile "/home/gene/.config/nvim/init.vim";
+        packages.core = with pkgs.vimPlugins; {
+          start = [
+            fzfWrapper
+          ];
+        };
       };
     };
+
     bash = {
       enable = true;
       shellAliases = {

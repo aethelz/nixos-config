@@ -80,6 +80,7 @@
     pass
     pulsemixer
     ranger
+    ripgrep
     sshfs
     termite
     tig
