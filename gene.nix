@@ -41,9 +41,15 @@ pkgs:
   home.packages = [
     pkgs.atool
     pkgs.brightnessctl
-    pkgs.cabal-install
+
     pkgs.nodejs-11_x
+    pkgs.nodePackages_10_x.javascript-typescript-langserver
+    pkgs.unstable.nodePackages_10_x.typescript-language-server
+    pkgs.nodePackages_10_x.eslint
+
     pkgs.stack
+    pkgs.haskellPackages.ghcid
+    pkgs.cabal-install
   ];
 
   programs = {
@@ -67,6 +73,7 @@ pkgs:
         packages.core = with pkgs.vimPlugins; {
           start = [
             fzfWrapper
+            LanguageClient-neovim
           ];
         };
       };

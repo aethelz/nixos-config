@@ -24,6 +24,9 @@
     {
       unstable = (import unstablePinned {}).pkgs;
     })
+
+    (import /home/gene/nixos-config/overlay/01-lazydocker.nix)
+
   ];
   nix.nixPath = options.nix.nixPath.default ++
   [
@@ -42,7 +45,7 @@
       "nvme"
       "usb_storage"
     ];
-    kernelPackages = pkgs.linuxPackages_5_0;
+    kernelPackages = pkgs.linuxPackages_5_1;
     kernelModules = [ "kvm-intel" ];
     resumeDevice = "/dev/nvme0n1p2";
     kernelParams = [
@@ -83,6 +86,7 @@
     ripgrep
     sshfs
     termite
+    lazydocker
     tig
     unzip
     w3m
@@ -139,6 +143,12 @@
     tlp.enable = true;
     fstrim.enable = true;
     journald.extraConfig = "SystemMaxUse=50M";
+    openvpn.servers = {
+      homeVPN = {
+        config = '' config /etc/vpn/acer.ovpn '';
+        updateResolvConf = true;
+      };
+    };
 
     # Enable the X11 windowing system.
     xserver = {
