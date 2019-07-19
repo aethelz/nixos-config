@@ -54,7 +54,10 @@ pkgs:
 
   programs = {
     zathura.enable = true;
-    firefox.enable = true;
+    firefox = {
+      enable = true;
+      package = pkgs.unstable.firefox-unwrapped;
+    };
     chromium.enable = true;
     fzf = {
       enable = true;

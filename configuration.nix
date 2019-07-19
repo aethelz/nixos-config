@@ -3,10 +3,9 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       "${builtins.fetchGit {
         url = "https://github.com/rycee/home-manager";
-        rev = "ff602cb906e3dd5d5f89c7c1d0fae65bc67119a0";
+        rev = "4f13f06b016d59420cafe34915abdd6b795d3416";
         ref = "release-19.03";
       }}/nixos"
     ];
@@ -17,7 +16,7 @@
     let unstablePinned =
       fetchGit {
         url = "https://github.com/NixOS/nixpkgs-channels";
-        rev = "4dd5c93998da55002fdec1c715c680531420381c";
+        rev = "1036dc664169b32613ec11b58cc1740c7511a340";
         ref = "nixos-unstable";
       };
     in
@@ -42,14 +41,11 @@
     };
     initrd.availableKernelModules = [
       "ahci"
-      "nvme"
       "usb_storage"
     ];
     kernelPackages = pkgs.linuxPackages_5_1;
     kernelModules = [ "kvm-intel" ];
-    resumeDevice = "/dev/nvme0n1p2";
     kernelParams = [
-      "resume_offset=83968" # swap file offset
       "i915.enable_fbc=1"
       "i915.fastboot=1"
       ];
@@ -57,7 +53,7 @@
   };
 
   networking = {
-    hostName = "acer";
+    hostName = "work";
     networkmanager.enable = true;
   };
 
@@ -100,6 +96,7 @@
 
   fonts.fonts = with pkgs; [
     terminus_font
+    corefonts
   ];
 
   programs.vim.defaultEditor = true;
@@ -125,8 +122,6 @@
   sound.mediaKeys.enable = true;
 
   hardware = {
-    bluetooth.enable = false;
-    bluetooth.powerOnBoot = false;
     brightnessctl.enable = true;
     cpu.intel.updateMicrocode = true;
     enableAllFirmware = true;
@@ -136,23 +131,29 @@
 
   powerManagement = {
     enable = true;
-    powertop.enable = true;
   };
 
   services = {
-    tlp.enable = true;
-    fstrim.enable = true;
     journald.extraConfig = "SystemMaxUse=50M";
-    openvpn.servers = {
-      homeVPN = {
-        config = '' config /etc/vpn/acer.ovpn '';
-        updateResolvConf = true;
-      };
-    };
 
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
+      # xrandrHeads = [
+      #   {
+      #     monitorConfig = ''
+      #       Option "Rotate" "left"
+      #     '';
+      #     output = "HDMI-2";
+      #   }
+      #   {
+      #     monitorConfig = ''
+      #       Option "Position" "1080 350"
+      #     '';
+      #     output = "DP-1";
+      #     primary = true;
+      #   }
+      # ];
       libinput.enable = true;
       libinput.accelProfile = "flat";
       layout = "us,ru";
@@ -189,7 +190,6 @@
           # swap ctrl and caps, apply color profile
           extraSessionCommands = ''
           xmodmap /home/gene/.Xmodmap && xcape -e 'Control_L=Escape'
-          xcalib -d :0 /home/gene/.config/acer.icm
           '';
         };
       };
