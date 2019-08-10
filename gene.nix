@@ -90,6 +90,7 @@ pkgs:
         "ignoredups"
       ];
       historyIgnore = [ "cd" ];
+      historySize = 100000;
       bashrcExtra = ''
         export EDITOR="nvim"
         export PS1="\[\e[0;30m\e[44m\]\u@\h:\w\$\[\e[0m\] "

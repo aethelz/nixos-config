@@ -104,6 +104,7 @@
 
   programs.vim.defaultEditor = true;
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   home-manager.users.gene = (import ./gene.nix) pkgs;
 
@@ -198,7 +199,13 @@
 
   users.users.gene = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" "docker" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+      "docker"
+      "vboxusers"
+    ];
   };
 
   system.stateVersion = "19.03";
