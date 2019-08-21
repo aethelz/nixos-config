@@ -37,6 +37,10 @@ pkgs:
       url = "https://github.com/aethelz/dotfiles/";
     }}/mpv/.config/mpv/mpv.conf";
 
+    ".gitconfig".source = "${builtins.fetchGit {
+      url = "https://github.com/aethelz/dotfiles/";
+    }}/git/.gitconfig";
+
   };
   home.packages = [
     pkgs.atool
