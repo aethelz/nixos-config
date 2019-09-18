@@ -54,6 +54,11 @@ pkgs:
     pkgs.stack
     pkgs.haskellPackages.ghcid
     pkgs.cabal-install
+
+    pkgs.dhall
+    pkgs.docker-compose
+    pkgs.font-manager
+    pkgs.vscodium
   ];
 
   programs = {

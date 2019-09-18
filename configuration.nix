@@ -92,6 +92,7 @@
     xorg.xmodmap
     xorg.xsetroot
     youtube-dl
+    zip
   ];
 
   fonts.fonts = with pkgs; [
