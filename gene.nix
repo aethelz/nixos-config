@@ -63,9 +63,10 @@ pkgs:
       package = pkgs.unstable.firefox-unwrapped;
     };
     chromium.enable = true;
+    chromium.package = pkgs.unstable.chromium;
     fzf = {
       enable = true;
-      defaultCommand = "rg --files";
+      defaultCommand = "rg --files --no-ignore-vcs";
     };
     neovim = {
       enable = true;

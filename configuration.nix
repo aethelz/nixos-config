@@ -5,7 +5,7 @@
     [ # Include the results of the hardware scan.
       "${builtins.fetchGit {
         url = "https://github.com/rycee/home-manager";
-        rev = "4f13f06b016d59420cafe34915abdd6b795d3416";
+        rev = "8def3835111f0b16850736aa210ca542fcd02af6";
         ref = "release-19.03";
       }}/nixos"
     ];
