@@ -68,7 +68,7 @@ pkgs:
       package = pkgs.unstable.neovim-unwrapped;
       plugins = with pkgs.vimPlugins; [
         fzfWrapper
-        LanguageClient-neovim
+        coc-nvim
       ];
       extraConfig = builtins.readFile "/home/gene/.config/nvim/init.vim";
     };
