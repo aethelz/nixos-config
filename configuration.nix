@@ -6,8 +6,8 @@
       ./hardware-configuration.nix
       "${builtins.fetchGit {
         url = "https://github.com/rycee/home-manager";
-        rev = "ff602cb906e3dd5d5f89c7c1d0fae65bc67119a0";
-        ref = "release-19.03";
+        rev = "dff5f07952e61da708dc8b348ea677414e992215";
+        ref = "release-19.09";
       }}/nixos"
     ];
 
@@ -17,7 +17,7 @@
     let unstablePinned =
       fetchGit {
         url = "https://github.com/NixOS/nixpkgs-channels";
-        rev = "4dd5c93998da55002fdec1c715c680531420381c";
+        rev = "7827d3f4497ed722fedca57fd4d5ca1a65c38256";
         ref = "nixos-unstable";
       };
     in
@@ -25,7 +25,8 @@
       unstable = (import unstablePinned {}).pkgs;
     })
 
-    (import /home/gene/nixos-config/overlay/01-lazydocker.nix)
+    # (import /home/gene/nixos-config/overlay/01-lazydocker.nix)
+    # (import /home/gene/nixos-config/overlay/02-docui.nix)
 
   ];
   nix.nixPath = options.nix.nixPath.default ++
@@ -45,7 +46,7 @@
       "nvme"
       "usb_storage"
     ];
-    kernelPackages = pkgs.linuxPackages_5_1;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" ];
     resumeDevice = "/dev/nvme0n1p2";
     kernelParams = [
@@ -66,8 +67,8 @@
   environment.etc.current-nixos-config.source = ./.;
   environment.systemPackages = with pkgs; [
     bat
-    unstable.docui
-    unstable.moc
+    docui
+    moc
     exa
     fd
     feh
@@ -130,7 +131,7 @@
     bluetooth.powerOnBoot = false;
     brightnessctl.enable = true;
     cpu.intel.updateMicrocode = true;
-    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     opengl.enable = true;
     pulseaudio.enable = true;
   };

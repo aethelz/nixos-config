@@ -42,10 +42,10 @@ pkgs:
     pkgs.atool
     pkgs.brightnessctl
 
-    pkgs.nodejs-11_x
-    pkgs.nodePackages_10_x.javascript-typescript-langserver
-    pkgs.unstable.nodePackages_10_x.typescript-language-server
-    pkgs.nodePackages_10_x.eslint
+    pkgs.nodejs-12_x
+    pkgs.nodePackages.javascript-typescript-langserver
+    pkgs.nodePackages.typescript-language-server
+    pkgs.nodePackages.eslint
 
     pkgs.stack
     pkgs.haskellPackages.ghcid
@@ -65,18 +65,12 @@ pkgs:
       vimAlias = true;
       viAlias = true;
       withNodeJs = true;
-      configure = {
-        # customRC = "${builtins.fetchGit {
-        #   url = "https://github.com/aethelz/dotfiles/";
-        # }}/nvim/.config/nvim/init.vim";
-        customRC = builtins.readFile "/home/gene/.config/nvim/init.vim";
-        packages.core = with pkgs.vimPlugins; {
-          start = [
-            fzfWrapper
-            LanguageClient-neovim
-          ];
-        };
-      };
+      package = pkgs.unstable.neovim-unwrapped;
+      plugins = with pkgs.vimPlugins; [
+        fzfWrapper
+        LanguageClient-neovim
+      ];
+      extraConfig = builtins.readFile "/home/gene/.config/nvim/init.vim";
     };
 
     bash = {
