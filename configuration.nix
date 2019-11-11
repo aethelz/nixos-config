@@ -5,8 +5,8 @@
     [ # Include the results of the hardware scan.
       "${builtins.fetchGit {
         url = "https://github.com/rycee/home-manager";
-        rev = "8def3835111f0b16850736aa210ca542fcd02af6";
-        ref = "release-19.03";
+        rev = "dff5f07952e61da708dc8b348ea677414e992215";
+        ref = "release-19.09";
       }}/nixos"
     ];
 
@@ -16,7 +16,7 @@
     let unstablePinned =
       fetchGit {
         url = "https://github.com/NixOS/nixpkgs-channels";
-        rev = "1036dc664169b32613ec11b58cc1740c7511a340";
+        rev = "7827d3f4497ed722fedca57fd4d5ca1a65c38256";
         ref = "nixos-unstable";
       };
     in
@@ -43,7 +43,7 @@
       "ahci"
       "usb_storage"
     ];
-    kernelPackages = pkgs.linuxPackages_5_1;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" ];
     kernelParams = [
       "i915.enable_fbc=1"
@@ -62,8 +62,8 @@
   environment.etc.current-nixos-config.source = ./.;
   environment.systemPackages = with pkgs; [
     bat
-    unstable.docui
-    unstable.moc
+    docui
+    moc
     exa
     fd
     feh
@@ -125,7 +125,7 @@
   hardware = {
     brightnessctl.enable = true;
     cpu.intel.updateMicrocode = true;
-    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     opengl.enable = true;
     pulseaudio.enable = true;
   };
